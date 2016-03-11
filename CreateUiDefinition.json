@@ -134,8 +134,8 @@
       }
     ],
     "outputs": {
-      "newStorageAccount": "[steps('panvnetconfig').newStorageAccount]",
-      "dnsNameForPublicIP": "[steps('VMSeriesConfig').dnsNameForPublicIP]",
+      "newStorageAccount": "[steps('panvnetconfig').newStorageAccount.name]",
+      "dnsNameForPublicIP": "[steps('VMSeriesConfig').dnsNameForPublicIP.domainNameLabel]",
       "vmName": "[steps('VMSeriesConfig').vmName]",
       "adminUsername": "[basics('adminUsername')]",
       "adminPassword": "[basics('SSHCredntials').password]",

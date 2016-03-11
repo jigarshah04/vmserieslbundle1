@@ -54,32 +54,14 @@
             "metadata": {
                 "description": "Default IP address space (/16) of the VNET"
             }
-        },
-        "imageSku": {
-            "type": "string",
-            "defaultValue": "vmseriesbundle1",
-            "allowedValues": [
-                "vmseriesbyol",
-                "vmseriesbundle1",
-                "vmseriesbundle2"
-            ],
-            "metadata": {
-                "description": "SKU (inside an offer) for Palo Alto Networks VM-Series image in Azure Marketplace"
-            }
-        },
-        "imageOffer": {
-            "type": "string",
-            "defaultValue": "vm-series-testpass1-preview",
-            "metadata": {
-                "description": "Offer name (that contains 1/more SKUs) for VM-Series in the Azure Marketplace"
-            }
         }
     },
     "variables": {
         "apiVersion": "2015-06-15",
         "location": "[resourceGroup().location]",
         "imagePublisher": "paloaltonetworks",
-        "imagePlan": "[concat('plan', parameters('imageSku'))]",
+	    "imageSku" : "vmseriesbundle1",
+	    "imageOffer" : "vm-series-testpass1-preview",
         "fwpublicIPName": "fwPublicIP",
         "addNameToConcat": "PA-VM",
         "nameToUse": "[trim(replace(variables('addNameToConcat'), ' ', '-'))]",
@@ -282,8 +264,8 @@
         "name": "[variables('vmName')]",
         "location": "[variables('location')]",
         "plan": {
-           "name": "[parameters('imageSku')]",
-           "product": "[parameters('imageOffer')]",
+           "name": "[variables('imageSku')]",
+           "product": "[variables('imageOffer')]",
            "publisher": "[variables('imagePublisher')]"
         },
         "dependsOn": [
@@ -304,8 +286,8 @@
             "storageProfile": {
                 "imageReference": {
                     "publisher": "[variables('imagePublisher')]",
-                    "offer": "[parameters('imageOffer')]",
-                    "sku": "[parameters('imageSku')]",
+                    "offer": "[variables('imageOffer')]",
+                    "sku": "[variables('imageSku')]",
                     "version": "latest"
                 },
                 "osDisk": {
